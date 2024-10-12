@@ -1,0 +1,40 @@
+$themes: (
+    light: (
+        theme-green-background: rgba(#849476, 1),
+        theme-green-tint-background: rgba(#849476, 0.5),
+        theme-red-background: rgba(#b35356, 1),
+        theme-red-tint-background: rgba(#b35356, 0.5),
+        theme-golden-background: rgba(#ebdcac, 1),
+        theme-golden-tint-background: rgba(#ebdcac, 0.5),
+        background: rgba(#ffffff, 1),
+        dock-background: rgba(#fcfcfd, 0.75),
+        dock-background-menu: rgba(#000000, 1),
+        dock-background-item-hover: rgba(#000000, 0.1),
+        card-background: rgba(#ebebeb, 0.5),
+        card-background-hover: rgba(#ebebeb, 1),
+        font-color: rgba(#000000, 1),
+        a-font-color: rgba(#000000, 1),
+        a-font-color-hover: rgba(#839476, 1),
+        tint-font-color-1: rgba(#000000, 0.75),
+        tint-font-color-2: rgba(#000000, 0.5),
+        border: #dcdfe6,
+        box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.12)
+    ),
+    dark: (
+        theme-green-background: rgba(#849476, 1),
+        theme-green-tint-background: rgba(#849476, 0.5),
+        background: rgba(#1B1B1F, 1),
+        dock-background: rgba(#141414, 0.75),
+        dock-background-menu: rgba(#fcfcfd, 1),
+        dock-background-item-hover: rgba(#fcfcfd, 0.1),
+        card-background: rgba(#141414, 0.5),
+        card-background-hover: rgba(#141414, 1),
+        font-color: rgba(#fcfcfd, 1),
+        a-font-color: rgba(#fcfcfd, 1),
+        a-font-color-hover: rgba(#839476, 1),
+        tint-font-color-1: rgba(#fcfcfd, 0.75),
+        tint-font-color-2: rgba(#fcfcfd, 0.5),
+        border: 1px solid #4c4d4f,
+        box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.72)
+    )
+);

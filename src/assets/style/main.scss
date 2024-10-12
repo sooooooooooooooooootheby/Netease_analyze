@@ -1,0 +1,26 @@
+@import "style/theme/handle.scss";
+
+* {
+	margin: 0;
+	padding: 0;
+	transition: 0.2s;
+}
+
+body {
+	overflow-x: hidden;
+}
+
+a {
+	padding: 2px 4px;
+	@include font_color("theme-red-background");
+}
+a:hover {
+	@include background_color("theme-golden-tint-background");
+}
+
+input,
+button {
+	border: 0; // 去除未选中状态边框
+	outline: none; // 去除选中状态边框
+	background-color: rgba(0, 0, 0, 0); // 透明背景
+}
