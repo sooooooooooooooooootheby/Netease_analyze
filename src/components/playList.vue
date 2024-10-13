@@ -80,7 +80,7 @@ const playList = ref([]);
 // 发送获取歌单请求
 const sendRequest = async (id) => {
 	try {
-		const res = await axios.get("http://localhost:3000/playlist/detail", {
+		const res = await axios.get("https://netease.sooooooooooooooooootheby.top/NeteaseCloudMusicApi/playlist/detail", {
 			params: {
 				id,
 			},
@@ -160,7 +160,7 @@ const downloadZip = async () => {
 // 获取歌曲下载信息
 const getSongUrl = async (id) => {
 	try {
-		const res = await axios.get("http://localhost:5000/Song_V1", {
+		const res = await axios.get("https://netease.sooooooooooooooooootheby.top/Netease_url/Song_V1", {
 			params: {
 				level: toneQuality.value,
 				type: "json",
