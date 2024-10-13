@@ -37,4 +37,10 @@
 		line-height: 1.6rem;
 	}
 }
+@media screen and (max-width: 992px) {
+	.about {
+		width: calc(100vw - 40px);
+		padding: 0 20px;
+	}
+}
 </style>

@@ -1,5 +1,5 @@
 <template>
-	<div class="main">
+	<div class="dock">
 		<span class="title">
 			<Icon icon="simple-icons:neteasecloudmusic" class="icon" />
 		</span>
@@ -20,7 +20,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.main {
+.dock {
 	width: calc(100vw - 64px);
 	height: 64px;
 	padding-left: 64px;
@@ -37,6 +37,11 @@ export default {
             font-size: 2rem;
             margin-right: 6px;
 		}
+	}
+}
+@media screen and (max-width: 992px) {
+	.dock {
+		padding-left: 18px;
 	}
 }
 </style>

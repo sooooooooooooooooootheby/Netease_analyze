@@ -8,6 +8,6 @@
 
 <script setup>
 import dock from "./components/dock.vue";
-import mains from "./components/main.vue";
+import mains from "./components/mains.vue";
 import foot from "./components/foot.vue";
 </script>

@@ -111,6 +111,7 @@
 					padding: 12px;
 					border-radius: 12px;
 					cursor: pointer;
+					border: 1px solid transparent;
 					@include flex_center($direction: row, $content: start);
 					img {
 						width: 48px;
@@ -120,13 +121,41 @@
 					}
 				}
 				li:hover {
-					@include background_color("theme-green-tint-background");
-				}
-				input {
-					display: none;
+					@include border_color("border");
 				}
 				input:checked + li {
 					@include background_color("theme-green-tint-background");
+				}
+
+				// 隐藏输入框
+				input {
+					display: none;
+				}
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 992px) {
+	.playList {
+		width: calc(100vw - 40px);
+		padding: 0 20px;
+		form {
+			width: 100%;
+			@include flex_center;
+			label {
+				width: 100%;
+				margin-bottom: 12px;
+			}
+		}
+		.list {
+			width: 100%;
+			.toneQuality {
+				display: flex;
+				flex-wrap: wrap;
+				padding-bottom: 0;
+				label {
+					margin: 0 12px 24px 0;
 				}
 			}
 		}

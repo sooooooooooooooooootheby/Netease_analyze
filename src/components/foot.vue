@@ -1,11 +1,11 @@
 <template>
-    <div class="main">
+    <div class="foot">
         <p>2024 © Sooooooooooooooooootheby</p>
     </div>
 </template>
 
 <style lang='scss' scoped>
-.main {
+.foot {
     width: 100vw;
     height: 128px;
     display: flex;

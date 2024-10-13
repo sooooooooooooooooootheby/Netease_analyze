@@ -1,6 +1,6 @@
 @import "style/theme/handle.scss";
 
-.main {
+.mains {
 	width: 100vw;
 	min-height: calc(100vh - 128px);
 	padding-top: 128px;
@@ -36,5 +36,14 @@
 			text-decoration: none;
             @include border_color("border", 2px);
         }
+	}
+}
+
+@media screen and (max-width: 992px) {
+	.main {
+		.container {
+			display: flex;
+			flex-wrap: wrap;
+		}
 	}
 }

@@ -1,5 +1,5 @@
 <template>
-	<div class="main">
+	<div class="mains">
 		<div class="title">
 			<span class="main_title">网易云音乐无损解析服务</span>
 			<span class="sub_title">一个简单的无损音乐下载站点</span>
@@ -37,5 +37,5 @@ const model = ref(0);
 </script>
 
 <style lang="scss" scoped>
-@import url("style/components/main.scss");
+@import url("style/components/mains.scss");
 </style>
