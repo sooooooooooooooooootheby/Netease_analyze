@@ -10,6 +10,10 @@ body {
 	overflow-x: hidden;
 }
 
+a {
+	color: $neteaseColor;
+}
+
 .is-focus, .is-focused {
 	box-shadow: 0 0 0 1px $neteaseColor inset !important;
 }

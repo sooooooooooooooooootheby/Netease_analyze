@@ -6,11 +6,16 @@
 				<span class="title"> 网易云无损解析 </span>
 			</el-header>
 			<el-main>
-				<el-radio-group v-model="page" fill="#E60026">
-					<el-radio-button label="歌单模式" value="songList" />
-					<el-radio-button label="单曲模式" value="single" />
-					<el-radio-button label="关于" value="about" />
-				</el-radio-group>
+				<div class="bar">
+					<el-radio-group v-model="page" fill="#E60026">
+						<el-radio-button label="歌单模式" value="songList" />
+						<el-radio-button label="单曲模式" value="single" />
+						<el-radio-button label="关于" value="about" />
+					</el-radio-group>
+					<a href="https://github.com/sooooooooooooooooootheby/Netease_analyze" target="_blank">
+						<el-button type="primary" color="#E60026" plain>Github</el-button>
+					</a>
+				</div>
 				<songList v-if="page === 'songList'" />
 				<single v-if="page === 'single'" />
 				<about v-if="page === 'about'" />
@@ -50,5 +55,11 @@ const page = ref("single");
 }
 .el-main {
 	height: calc(100vh - 64px);
+	.bar {
+		display: flex;
+		.el-button {
+			margin-left: 12px;
+		}
+	}
 }
 </style>
