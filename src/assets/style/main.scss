@@ -1,4 +1,4 @@
-@import "style/theme/handle.scss";
+@import "style/handle.scss";
 
 * {
 	margin: 0;
@@ -10,17 +10,20 @@ body {
 	overflow-x: hidden;
 }
 
-a {
-	padding: 2px 4px;
-	@include font_color("theme-red-background");
-}
-a:hover {
-	@include background_color("theme-golden-tint-background");
+.is-focus, .is-focused {
+	box-shadow: 0 0 0 1px $neteaseColor inset !important;
 }
 
-input,
-button {
-	border: 0; // 去除未选中状态边框
-	outline: none; // 去除选中状态边框
-	background-color: rgba(0, 0, 0, 0); // 透明背景
+.el-checkbox__input.is-checked .el-checkbox__inner, .el-checkbox__input.is-indeterminate .el-checkbox__inner {
+	background-color: $neteaseColor !important;
+	border-color: $neteaseColor !important;
+}
+.el-radio-button__inner:hover {
+	color: $neteaseColor !important;
+}
+
+.is-active:hover {
+	.el-radio-button__inner {
+		color: #FFF !important;
+	}
 }

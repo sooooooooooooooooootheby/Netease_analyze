@@ -1,0 +1,8 @@
+$neteaseColor: #E60026;
+
+@mixin flex_center($direction: column, $content: center, $items: center) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $content;
+    align-items: $items;
+}
