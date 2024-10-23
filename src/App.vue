@@ -31,7 +31,7 @@ import songList from "@/components/songList.vue";
 import single from "@/components/single.vue";
 import about from "@/components/about.vue";
 
-const page = ref("single");
+const page = ref("songList");
 </script>
 
 <style lang="scss" scoped>
@@ -60,6 +60,12 @@ const page = ref("single");
 		.el-button {
 			margin-left: 12px;
 		}
+	}
+}
+
+@media (max-width: 900px) {
+	.el-header {
+		padding: 0 20px;
 	}
 }
 </style>

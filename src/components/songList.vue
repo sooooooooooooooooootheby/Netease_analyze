@@ -8,9 +8,11 @@
 			<el-select v-model="selectedQuality" placeholder="选择音质" style="width: 240px">
 				<el-option v-for="item in quality" :key="item.value" :label="item.label" :value="item.value" />
 			</el-select>
-			<el-button @click="getSongList" type="primary" color="#E60026" plain>获取歌单</el-button>
-			<el-button @click="downloadSelectSong" color="#E60026" plain>下载已选</el-button>
-			<el-button @click="downloadAllSong" color="#E60026" plain>下载所有</el-button>
+			<div class="button">
+				<el-button @click="getSongList" type="primary" color="#E60026" plain>获取歌单</el-button>
+				<el-button @click="downloadSelectSong" v-if="showMore" color="#E60026" plain>下载已选</el-button>
+				<el-button @click="downloadAllSong" v-if="showMore" color="#E60026" plain>下载所有</el-button>
+			</div>
 			<div class="loading" v-if="getInfo">
 				<span>获取音乐信息中...</span>
 			</div>
@@ -20,7 +22,7 @@
 			</div>
 		</div>
 
-		<div class="list">
+		<div class="list" v-if="showMore">
 			<el-table ref="multipleTableRef" @selection-change="handleSelectionChange" empty-text="没有数据" :data="songList" style="width: 100%">
 				<el-table-column type="selection" width="55" />
 				<el-table-column label="封面" width="120">
@@ -52,6 +54,8 @@ const notification = (message) => {
 	});
 };
 
+const showMore = ref(false);
+
 // 获取到的歌曲列表
 const songList = ref([]);
 // 发送获取歌单请求
@@ -63,14 +67,15 @@ const sendRequest = async (id) => {
 			},
 		});
 		songList.value = res.data.playlist.tracks;
+		showMore.value = true;
 	} catch (error) {
 		notification("获取列表失败: " + error);
 	}
 };
 
 // 输入的url或者id
-// const url = ref("");
-const url = ref("https://music.163.com/#/my/m/music/playlist?id=12763433746");
+const url = ref("");
+// const url = ref("https://music.163.com/#/my/m/music/playlist?id=12763433746");
 // 判断输入的是url还是id
 const getSongList = () => {
 	const urlRegex = /https:\/\/music\.163\.com\/#\/my\/m\/music\/playlist\?id=(\d+)/;
@@ -177,6 +182,20 @@ const downloadAllSong = async () => {
 	}
 	> div {
 		margin-bottom: 12px;
+	}
+	.url {
+		.el-input {
+			width: 100% !important;
+		}
+	}
+	.config {
+		.button {
+			margin-top: 12px;
+			.el-button {
+				margin-left: 0;
+				margin-right: 12px;
+			}
+		}
 	}
 }
 </style>

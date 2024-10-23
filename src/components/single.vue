@@ -8,8 +8,10 @@
 			<el-select v-model="selectedQuality" placeholder="选择音质" style="width: 240px">
 				<el-option v-for="item in quality" :key="item.value" :label="item.label" :value="item.value" />
 			</el-select>
-			<el-button @click="getSongList" type="primary" color="#E60026" plain>获取歌曲</el-button>
-			<el-button @click="downloadSong" type="primary" color="#E60026" plain>下载歌曲</el-button>
+			<div class="button">
+				<el-button @click="getSongList" type="primary" color="#E60026" plain>获取歌曲</el-button>
+				<el-button @click="downloadSong" v-if="loaded" type="primary" color="#E60026" plain>下载歌曲</el-button>
+			</div>
 			<div class="loading" v-if="getInfo">
 				<span>获取音乐信息中...</span>
 			</div>
@@ -83,8 +85,8 @@ const quality = [
 ];
 
 // 输入的url或者id
-// const url = ref("");
-const url = ref("https://music.163.com/#/song?id=1830190033");
+const url = ref("");
+// const url = ref("https://music.163.com/#/song?id=1830190033");
 const loaded = ref(false);
 const getInfo = ref(false);
 // 判断输入的是url还是id
@@ -146,6 +148,20 @@ const downloadSong = () => {
 	> div {
 		margin-bottom: 12px;
 	}
+	.url {
+		.el-input {
+			width: 100% !important;
+		}
+	}
+	.config {
+		.button {
+			margin-top: 12px;
+			.el-button {
+				margin-left: 0;
+				margin-right: 12px;
+			}
+		}
+	}
 	.songInfo {
 		width: 100%;
 		height: 100%;
@@ -180,6 +196,16 @@ const downloadSong = () => {
 			filter: blur(100px) brightness(0.75);
 			img {
 				width: 100%;
+			}
+		}
+	}
+}
+
+@media (max-width: 900px) {
+	.single {
+		.songInfo {
+			.background {
+				display: none;
 			}
 		}
 	}
