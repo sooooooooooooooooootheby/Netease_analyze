@@ -61,7 +61,7 @@ const songList = ref([]);
 // 发送获取歌单请求
 const sendRequest = async (id) => {
 	try {
-		const res = await axios.get("https://netease.sooooooooooooooooootheby.top/NeteaseCloudMusicApi/playlist/detail", {
+		const res = await axios.get("https://api.sooooooooooooooooootheby.top/NeteaseCloudMusicApi/playlist/detail", {
 			params: {
 				id,
 			},
