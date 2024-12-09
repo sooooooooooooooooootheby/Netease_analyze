@@ -23,7 +23,7 @@ export const downloadStore = defineStore("download", {
 		// 获取歌曲的信息
 		async getSongDownloadInfo(quality, id, callback) {
 			try {
-				const res = await axios.get("https://netease.sooooooooooooooooootheby.top/Netease_url/Song_V1", {
+				const res = await axios.get("https://api.sooooooooooooooooootheby.top/Netease_url/Song_V1", {
 					params: {
 						level: quality,
 						type: "json",
