@@ -52,35 +52,35 @@ export const downloadStore = defineStore("download", {
                     author: res.data.ar_name,
                     lyric: res.data.lyric,
                     pic: res.data.pic,
-                    url: res.data.url,
+                    url: res.data.url.replace(/^http:\/\//, 'https://'),
                 });
                 if (callback) callback();
             } catch (error) {
                 notification("获取歌曲失败: " + error);
             }
         },
-		async fetchWithProgress(url, onProgress) {
-			const response = await fetch(url);
-			const reader = response.body.getReader();
-			const contentLength = +response.headers.get('Content-Length'); // 获取内容总长度
-			let receivedLength = 0; // 已接收的字节数
-			const chunks = []; // 存储下载的字节块
+        async fetchWithProgress(url, onProgress) {
+            const response = await fetch(url);
+            const reader = response.body.getReader();
+            const contentLength = +response.headers.get("Content-Length"); // 获取内容总长度
+            let receivedLength = 0; // 已接收的字节数
+            const chunks = []; // 存储下载的字节块
 
-			while (true) {
-				const { done, value } = await reader.read();
-				if (done) break;
-				chunks.push(value);
-				receivedLength += value.length;
-				// 计算下载进度
-				const progress = (receivedLength / contentLength) * 100;
-				onProgress(progress); // 调用回调函数更新进度
-			}
-			return new Blob(chunks); // 将所有块合并为 Blob
-		},
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+                chunks.push(value);
+                receivedLength += value.length;
+                // 计算下载进度
+                const progress = (receivedLength / contentLength) * 100;
+                onProgress(progress); // 调用回调函数更新进度
+            }
+            return new Blob(chunks); // 将所有块合并为 Blob
+        },
         // 下载文件
         async downloadFile(list, callback) {
-			const totalFiles = list.length * 3;
-			let completedFiles = 0;
+            const totalFiles = list.length * 3;
+            let completedFiles = 0;
             // 创建jszip对象
             const zip = new JSZip();
 
@@ -100,7 +100,7 @@ export const downloadStore = defineStore("download", {
                     this.downloadSchedule = overallProgress.toFixed(2); // 细化到小数点后 2 位
                 });
                 folder.file(`${song.name}.jpg`, picBlob); // 保存图片
-				completedFiles += 1;
+                completedFiles += 1;
 
                 // 下载歌曲
                 const songBlob = await this.fetchWithProgress(song.url, (progress) => {
@@ -112,14 +112,14 @@ export const downloadStore = defineStore("download", {
                 const fileExtension = song.url.split(".").pop(); // 从 URL 中提取扩展名
                 const fileName = `${song.name}.${fileExtension}`; // 使用歌曲名称和扩展名
                 folder.file(fileName, songBlob); // 保存歌曲
-				completedFiles += 1;
+                completedFiles += 1;
 
                 // 创建 LRC 格式的歌词
                 const lrcContent = formatLRC(song.lyric);
                 folder.file(`${song.name}.lrc`, lrcContent); // 保存歌词
                 const overallProgress = ((completedFiles + 1) / totalFiles) * 100;
                 this.downloadSchedule = overallProgress.toFixed(2); // 歌词的进度增加
-				completedFiles += 1;
+                completedFiles += 1;
             }
 
             this.downloadSchedule = 0;
