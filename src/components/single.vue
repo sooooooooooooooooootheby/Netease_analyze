@@ -1,7 +1,7 @@
 <template>
 	<div class="single">
 		<div class="url">
-			<el-input v-model="url" style="width: 500px" placeholder="请输入歌单的链接或者id" />
+			<el-input v-model="url" style="width: 500px" placeholder="请输入歌曲的链接或者id" />
 		</div>
 
 		<div class="config">
