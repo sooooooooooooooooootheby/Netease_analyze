@@ -17,7 +17,7 @@
 			</div>
 			<div class="download" v-if="downloading">
 				<span>下载音乐中</span>
-				<el-progress :percentage="download.downloadSchedule" />
+				<el-progress :percentage="parseFloat(download.downloadSchedule)" />
 			</div>
 		</div>
 
@@ -85,8 +85,8 @@ const quality = [
 ];
 
 // 输入的url或者id
-const url = ref("");
-// const url = ref("https://music.163.com/#/song?id=1830190033");
+// const url = ref("");
+const url = ref("https://music.163.com/#/song?id=1830190033");
 const loaded = ref(false);
 const getInfo = ref(false);
 // 判断输入的是url还是id
@@ -125,10 +125,6 @@ const getSongList = () => {
 const downloading = ref(false);
 const downloadSong = () => {
 	downloading.value = true;
-	ElNotification({
-		message: "下载开始了, 如果你发现进度条长时间卡在25%, 请放心这不是bug, 这是因为它在下载音乐, 理论上来说这个下载时间取决于你的网络和音乐的音质, 所以可能长时间卡在25%. 当然如果下载失败会有弹窗提示的.",
-		duration: 0,
-	});
 	download.downloadFile(download.songInfoList, () => {
 		downloading.value = false;
 	});

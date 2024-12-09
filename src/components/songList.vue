@@ -10,20 +10,20 @@
 			</el-select>
 			<div class="button">
 				<el-button @click="getSongList" type="primary" color="#E60026" plain>获取歌单</el-button>
-				<el-button @click="downloadSelectSong" v-if="showMore" color="#E60026" plain>下载已选</el-button>
-				<el-button @click="downloadAllSong" v-if="showMore" color="#E60026" plain>下载所有</el-button>
+				<el-button @click="downloadSelectSong" v-if="download.showMore" color="#E60026" plain>下载已选</el-button>
+				<el-button @click="downloadAllSong" v-if="download.showMore" color="#E60026" plain>下载所有</el-button>
 			</div>
 			<div class="loading" v-if="getInfo">
 				<span>获取音乐信息中...</span>
 			</div>
 			<div class="download" v-if="downloading">
 				<span>下载音乐中</span>
-				<el-progress :percentage="download.downloadSchedule" />
+				<el-progress :percentage="parseFloat(download.downloadSchedule)" />
 			</div>
 		</div>
 
-		<div class="list" v-if="showMore">
-			<el-table ref="multipleTableRef" @selection-change="handleSelectionChange" empty-text="没有数据" :data="songList" style="width: 100%">
+		<div class="list" v-if="download.showMore">
+			<el-table ref="multipleTableRef" @selection-change="handleSelectionChange" empty-text="没有数据" :data="download.songList" style="width: 100%">
 				<el-table-column type="selection" width="55" />
 				<el-table-column label="封面" width="120">
 					<template #default="scope">
@@ -54,28 +54,9 @@ const notification = (message) => {
 	});
 };
 
-const showMore = ref(false);
-
-// 获取到的歌曲列表
-const songList = ref([]);
-// 发送获取歌单请求
-const sendRequest = async (id) => {
-	try {
-		const res = await axios.get("https://api.sooooooooooooooooootheby.top/NeteaseCloudMusicApi/playlist/detail", {
-			params: {
-				id,
-			},
-		});
-		songList.value = res.data.playlist.tracks;
-		showMore.value = true;
-	} catch (error) {
-		notification("获取列表失败: " + error);
-	}
-};
-
 // 输入的url或者id
-const url = ref("");
-// const url = ref("https://music.163.com/#/my/m/music/playlist?id=12763433746");
+// const url = ref("");
+const url = ref("https://music.163.com/#/my/m/music/playlist?id=12763433746");
 // 判断输入的是url还是id
 const getSongList = () => {
 	const urlRegex = /https:\/\/music\.163\.com\/#\/my\/m\/music\/playlist\?id=(\d+)/;
@@ -83,9 +64,9 @@ const getSongList = () => {
 
 	if (urlRegex.test(url.value)) {
 		const match = url.value.match(urlRegex);
-		sendRequest(match[1]);
+		download.getSongList(match[1]);
 	} else if (idRegex.test(url.value)) {
-		sendRequest(url.value);
+		download.getSongList(url.value);
 	} else {
 		notification("请输入正确的歌单链接或者id");
 	}
@@ -140,10 +121,6 @@ const downloadSelectSong = async () => {
 		return notification("请选择歌曲");
 	}
 	getInfo.value = true;
-	ElNotification({
-		message: "下载开始了, 如果你发现进度条长时间卡在25%, 请放心这不是bug, 这是因为它在下载音乐, 理论上来说这个下载时间取决于你的网络和音乐的音质, 所以可能长时间卡在25%. 当然如果下载失败会有弹窗提示的.",
-		duration: 0,
-	});
 
 	const songPromises = selectedSong.value.map((item) => download.getSongDownloadInfo(selectedQuality.value, item));
 	await Promise.all(songPromises);
@@ -159,12 +136,8 @@ const downloadAllSong = async () => {
 		return notification("请选择音质");
 	}
 	getInfo.value = true;
-	ElNotification({
-		message: "下载开始了, 如果你发现进度条长时间卡在25%, 请放心这不是bug, 这是因为它在下载音乐, 理论上来说这个下载时间取决于你的网络和音乐的音质, 所以可能长时间卡在25%. 当然如果下载失败会有弹窗提示的.",
-		duration: 0,
-	});
 
-	const songPromises = songList.value.map((item) => download.getSongDownloadInfo(selectedQuality.value, item.id));
+	const songPromises = download.songList.map((item) => download.getSongDownloadInfo(selectedQuality.value, item.id));
 	await Promise.all(songPromises);
 	getInfo.value = false;
 	downloading.value = true;
