@@ -55,8 +55,8 @@ const notification = (message) => {
 };
 
 // 输入的url或者id
-// const url = ref("");
-const url = ref("https://music.163.com/#/my/m/music/playlist?id=12763433746");
+const url = ref("");
+// const url = ref("https://music.163.com/#/my/m/music/playlist?id=12763433746");
 // 判断输入的是url还是id
 const getSongList = () => {
 	const urlRegex = /https:\/\/music\.163\.com\/#\/my\/m\/music\/playlist\?id=(\d+)/;

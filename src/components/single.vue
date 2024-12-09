@@ -85,8 +85,8 @@ const quality = [
 ];
 
 // 输入的url或者id
-// const url = ref("");
-const url = ref("https://music.163.com/#/song?id=1830190033");
+const url = ref("");
+// const url = ref("https://music.163.com/#/song?id=1830190033");
 const loaded = ref(false);
 const getInfo = ref(false);
 // 判断输入的是url还是id
