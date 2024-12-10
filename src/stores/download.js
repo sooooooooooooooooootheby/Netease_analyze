@@ -41,10 +41,11 @@ export const downloadStore = defineStore("download", {
         async getSongDownloadInfo(quality, id, callback) {
             try {
                 const res = await axios.get("https://api.sooooooooooooooooootheby.top/Netease_url/Song_V1", {
+                // const res = await axios.get("http://127.0.0.1:5000/Song_V1", {
                     params: {
                         level: quality,
                         type: "json",
-                        url: `https://music.163.com/#/song?id=${id}`,
+                        ids: id,
                     },
                 });
                 this.songInfoList.push({
@@ -56,7 +57,7 @@ export const downloadStore = defineStore("download", {
                 });
                 if (callback) callback();
             } catch (error) {
-                notification("获取歌曲失败: " + error);
+                notification("目前有部分音乐无法正常解析, 需要等Api作者回复才有具体解决方法." + "获取歌曲失败: " + error);
             }
         },
         async fetchWithProgress(url, onProgress) {
