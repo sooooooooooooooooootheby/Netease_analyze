@@ -18,7 +18,7 @@
                 <span>获取音乐信息中...</span>
             </div>
             <div class="download" v-if="downloading">
-                <span>下载音乐中</span>
+                <span>下载音乐中(如果你发现进度条一直跳来跳去是正常的, 因为我懒得写了, 进度条的作用只是告诉你他在下载而不是卡死了)</span>
                 <el-progress color="#E60026" :percentage="parseFloat(download.downloadSchedule)" />
             </div>
         </div>
@@ -62,8 +62,8 @@ const notification = (message) => {
 };
 
 // 输入的url或者id
-// const url = ref("");
-const url = ref("https://music.163.com/playlist?id=719039399&userid=480428722");
+const url = ref("");
+// const url = ref("https://music.163.com/playlist?id=719039399&userid=480428722");
 // 截取id
 const getSongList = () => {
     const urlRegex = /https?:\/\/[^\s]+/;

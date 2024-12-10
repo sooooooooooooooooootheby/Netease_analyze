@@ -11,12 +11,13 @@
             <div class="button">
                 <el-button @click="getSongList" type="primary" color="#E60026" plain>获取歌曲</el-button>
                 <el-button @click="downloadSong" v-if="loaded" type="primary" color="#E60026" plain>下载歌曲</el-button>
+                <span>获取歌单时有概率出现无法获取列表的问题, 刷新一下多获取几遍就好了(或者等待一会).</span>
             </div>
             <div class="loading" v-if="getInfo">
                 <span>获取音乐信息中...</span>
             </div>
             <div class="download" v-if="downloading">
-                <span>下载音乐中</span>
+                <span>下载音乐中(如果你发现进度条一直跳来跳去是正常的, 因为我懒得写了,进度条的作用只是告诉你他在下载而不是卡死了)</span>
                 <el-progress color="#E60026" :percentage="parseFloat(download.downloadSchedule)" />
             </div>
         </div>
@@ -91,34 +92,34 @@ const loaded = ref(false);
 const getInfo = ref(false);
 // 判断输入的是url还是id
 const getSongList = () => {
-	getInfo.value = true;
+    getInfo.value = true;
     const urlRegex = /https?:\/\/[^\s]+/;
-	const idRegex = /^\d+$/;
+    const idRegex = /^\d+$/;
     const match = url.value.match(urlRegex) || url.value.match(idRegex);
 
     if (!match) {
-		getInfo.value = true;
+        getInfo.value = true;
         return notification("请输入正确的歌曲链接或者id");
     }
 
-	if (url.value.match(urlRegex)) {
-		const urls = match[0];
+    if (url.value.match(urlRegex)) {
+        const urls = match[0];
         const urlParams = new URL(urls).searchParams;
         const id = urlParams.get("id");
         download.getSongDownloadInfo(selectedQuality.value, id, () => {
-			loaded.value = true;
-			getInfo.value = false;
-		})
-		return;
-	}
+            loaded.value = true;
+            getInfo.value = false;
+        });
+        return;
+    }
 
-	if (url.value.match(idRegex)) {
-		download.getSongDownloadInfo(selectedQuality.value, url.value, () => {
-		    loaded.value = true;
-			getInfo.value = false;
-		})
-		return;
-	}
+    if (url.value.match(idRegex)) {
+        download.getSongDownloadInfo(selectedQuality.value, url.value, () => {
+            loaded.value = true;
+            getInfo.value = false;
+        });
+        return;
+    }
 };
 
 // 下载
