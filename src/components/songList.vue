@@ -61,8 +61,8 @@ const notification = (message) => {
 };
 
 // 输入的url或者id
-const url = ref("");
-// const url = ref("https://music.163.com/playlist?id=8301970181&userid=480428722");
+// const url = ref("");
+const url = ref("https://music.163.com/playlist?id=12763433746&userid=480428722");
 // 截取id
 const getSongList = () => {
     const urlRegex = /https?:\/\/[^\s]+/;
