@@ -19,7 +19,6 @@ export const downloadStore = defineStore("download", {
             showMore: false,
             songInfoList: [],
             downloadSchedule: 0, // 下载进度
-            downloadCount: 0, // 下载歌曲数量
         };
     },
     actions: {
@@ -79,88 +78,67 @@ export const downloadStore = defineStore("download", {
             return new Blob(chunks); // 将所有块合并为 Blob
         },
         // 下载文件
-        async downloadFile(list, callback) {
-            // 获取文件列表长度
-            const totalFiles = list.length * 3;
-            // 当前下载到第几首歌
-            let completedFiles = 0;
-            // 每次下载的批次大小
-            const batchSize = Math.ceil(list.length / 5);
-            // 创建jszip对象
-            const zip = new JSZip();
+        async downloadFile(callback) {
+            this.downloadSchedule = 0;
 
-            // 方法：格式化 LRC 歌词
+            // 格式化LRC歌词
             const formatLRC = (lyric) => {
                 return `[00:00.00]${lyric}\n`;
             };
 
-            const downloadBatch = async (batchStart, batchEnd) => {
-                for (let i = batchStart; i < batchEnd; i++) {
-                    const song = list[i];
-                    const folder = zip.folder(song.name); // 每个歌曲文件夹以 name 命名
-                    this.downloadSchedule = 0;
+            const downloadBatch = async (list) => {
+                // 创建jszip实力
+                const zip = new JSZip();
 
-                    // 下载图片
+                for (let song of list) {
+                    // 文件名
+                    const folder = zip.folder(song.name);
+
+                    // 下载封面
                     const picBlob = await this.fetchWithProgress(song.pic, (progress) => {
-                        const overallProgress = ((completedFiles + progress / 100) / totalFiles) * 100;
-                        this.downloadSchedule = overallProgress.toFixed(2); // 细化到小数点后 2 位
+                        this.downloadSchedule = Math.floor(progress.toFixed(2));
                     });
                     folder.file(`${song.name}.jpg`, picBlob); // 保存图片
-                    completedFiles += 1;
 
                     // 下载歌曲
                     const songBlob = await this.fetchWithProgress(song.url, (progress) => {
-                        const overallProgress = ((completedFiles + progress / 100) / totalFiles) * 100;
-                        this.downloadSchedule = overallProgress.toFixed(2);
+                        this.downloadSchedule = Math.floor(progress.toFixed(2));
                     });
-
-                    // 获取文件扩展名
                     const fileExtension = song.url.split(".").pop(); // 从 URL 中提取扩展名
                     const fileName = `${song.name}.${fileExtension}`; // 使用歌曲名称和扩展名
                     folder.file(fileName, songBlob); // 保存歌曲
-                    completedFiles += 1;
 
                     // 创建 LRC 格式的歌词
                     const lrcContent = formatLRC(song.lyric);
                     folder.file(`${song.name}.lrc`, lrcContent); // 保存歌词
-                    const overallProgress = ((completedFiles + 1) / totalFiles) * 100;
-                    this.downloadSchedule = overallProgress.toFixed(2); // 歌词的进度增加
-                    completedFiles += 1;
+                    this.downloadSchedule = 100;
                 }
+
+                // 打包并下载
+                zip.generateAsync({ type: "blob" }, (metadata) => {
+                    // 更新下载进度
+                    this.downloadSchedule = Math.floor(metadata.percent.toFixed(2));
+                })
+                    .then((zipBlob) => {
+                        const url = URL.createObjectURL(zipBlob);
+                        const a = document.createElement("a");
+                        a.href = url;
+                        a.download = `songs.zip`; // 下载的 ZIP 文件名
+                        document.body.appendChild(a);
+                        a.click();
+                        document.body.removeChild(a);
+                        URL.revokeObjectURL(url); // 释放对象 URL
+                    })
+                    .catch((error) => {
+                        notification("下载文件失败: " + error);
+                    });
             };
 
-            // 分批下载
-            for (let part = 0; part < 5; part++) {
-                const batchStart = part * batchSize;
-                const batchEnd = Math.min((part + 1) * batchSize, list.length);
-                await downloadBatch(batchStart, batchEnd);
+            for (let i = 0; i < this.songInfoList.length; i += 5) {
+                const group = this.songInfoList.slice(i, i + 5);
+                downloadBatch(group);
             }
-
-            this.downloadSchedule = 0;
-
-            // 生成 ZIP 文件并下载，同时更新进度条
-            zip.generateAsync({ type: "blob" }, (metadata) => {
-                // 更新下载进度
-                this.downloadSchedule = Math.floor(metadata.percent.toFixed(2));
-            })
-                .then((zipBlob) => {
-                    const url = URL.createObjectURL(zipBlob);
-                    const a = document.createElement("a");
-                    a.href = url;
-                    a.download = `songs.zip`; // 下载的 ZIP 文件名
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
-                    URL.revokeObjectURL(url); // 释放对象 URL
-
-                    // 下载完成后将进度重置为 0
-                    this.downloadSchedule = 0;
-                    this.songInfoList = [];
-                    if (callback) callback();
-                })
-                .catch((error) => {
-                    notification("下载文件失败: " + error);
-                });
+            if (callback) callback();
         },
     },
 });

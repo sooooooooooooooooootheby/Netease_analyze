@@ -125,9 +125,7 @@ const getSongList = () => {
 const downloading = ref(false);
 const downloadSong = () => {
     downloading.value = true;
-    download.downloadFile(download.songInfoList, () => {
-        downloading.value = false;
-    });
+    download.downloadFile();
 };
 </script>
 

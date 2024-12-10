@@ -63,7 +63,7 @@ const notification = (message) => {
 
 // 输入的url或者id
 // const url = ref("");
-const url = ref("https://music.163.com/playlist?id=719039399&userid=480428722");
+const url = ref("https://music.163.com/playlist?id=12763433746&userid=480428722");
 // 截取id
 const getSongList = () => {
     const urlRegex = /https?:\/\/[^\s]+/;
@@ -140,11 +140,12 @@ const downloadSelectSong = async () => {
 
     const songPromises = selectedSong.value.map((item) => download.getSongDownloadInfo(selectedQuality.value, item));
     await Promise.all(songPromises);
+
+    // 切换到下载提示
     getInfo.value = false;
     downloading.value = true;
-    download.downloadFile(download.songInfoList, () => {
-        downloading.value = false;
-    });
+
+    download.downloadFile();
 };
 
 const downloadAllSong = async () => {
@@ -155,11 +156,12 @@ const downloadAllSong = async () => {
 
     const songPromises = download.songList.map((item) => download.getSongDownloadInfo(selectedQuality.value, item.id));
     await Promise.all(songPromises);
+
+    // 切换到下载提示
     getInfo.value = false;
     downloading.value = true;
-    download.downloadFile(download.songInfoList, () => {
-        downloading.value = false;
-    });
+
+    download.downloadFile();
 };
 </script>
 
