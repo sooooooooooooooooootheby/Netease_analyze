@@ -12,6 +12,7 @@
                 <el-button @click="getSongList" type="primary" color="#E60026" plain>获取歌单</el-button>
                 <el-button @click="downloadSelectSong" v-if="download.showMore" color="#E60026" plain>下载已选</el-button>
                 <el-button @click="downloadAllSong" v-if="download.showMore" color="#E60026" plain>下载所有</el-button>
+                <span>获取歌单时有概率出现无法获取列表的问题, 刷新一下多获取几遍就好了(或者等待一会).</span>
             </div>
             <div class="loading" v-if="getInfo">
                 <span>获取音乐信息中...</span>

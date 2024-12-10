@@ -32,6 +32,7 @@
 				<span>TODO:</span>
 				<li><del>无法正确识别提取url和id</del></li>
 				<li>[测试]当音乐过多时打包下载导致的内存爆炸</li>
+                <li>概率出现CORS问题</li>
 				<li>加入酷狗解析</li>
 			</ul>
             <template #footer>
