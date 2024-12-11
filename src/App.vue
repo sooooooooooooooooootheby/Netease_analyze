@@ -22,18 +22,15 @@
             </el-main>
         </el-container>
         <el-dialog v-model="centerDialogVisible" title="Hello" width="500" align-center style="padding: 20px 40px">
-            <span>当前项目正在测试阶段, 虽然已经上线了两个月, 但是因为这两个月开了网易云的黑胶所以一直没怎么用过解析站点, 导致一直有问题存在, 这两天才发现.</span>
-			<br>
-			<br>
-			<span>如果你发现了bug或者一些需要改进的地方欢迎提<a href="https://github.com/sooooooooooooooooootheby/Netease_analyze/issues/new" target="_blank">issues</a>, 或者发送邮件到sooooooooooooooooootheby@gmail.com, 以帮助我更好地改进解析站点.</span>
+			<span>当前项目处于测试阶段, 如果你发现了bug或者一些需要改进的地方欢迎提<a href="https://github.com/sooooooooooooooooootheby/Netease_analyze/issues/new" target="_blank">issues</a>, 或者发送邮件到sooooooooooooooooootheby@gmail.com, 以帮助我更好地改进解析站点.</span>
 			<br>
 			<br>
 			<ul>
 				<span>TODO:</span>
 				<li><del>无法正确识别提取url和id</del></li>
-				<li>[测试]当音乐过多时打包下载导致的内存爆炸2</li>
-                <li>概率出现CORS问题</li>
-				<li>加入酷狗解析</li>
+				<li><del>当音乐过多时打包下载导致的内存爆炸</del></li>
+                <li>概率出现CORS问题(出现概率不是很大 刷新几次就能解决 我懒得修了 也不好修 等严重的时候再说罢)</li>
+				<li>加入酷狗解析(计划一月底开始做)</li>
 			</ul>
             <template #footer>
                 <div class="dialog-footer">

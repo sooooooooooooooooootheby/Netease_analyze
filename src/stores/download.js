@@ -39,8 +39,8 @@ export const downloadStore = defineStore("download", {
         // 获取歌曲的信息
         async getSongDownloadInfo(quality, id, callback) {
             try {
-                const res = await axios.get("https://api.sooooooooooooooooootheby.top/Netease_url/Song_V1", {
-                // const res = await axios.get("http://127.0.0.1:5000/Song_V1", {
+                // const res = await axios.get("https://api.sooooooooooooooooootheby.top/Netease_url/Song_V1", {
+                const res = await axios.get("http://127.0.0.1:5000/Song_V1", {
                     params: {
                         level: quality,
                         type: "json",
@@ -52,7 +52,7 @@ export const downloadStore = defineStore("download", {
                     author: res.data.ar_name,
                     lyric: res.data.lyric,
                     pic: res.data.pic,
-                    url: res.data.url.replace(/^http:\/\//, "https://"),
+                    url: res.data.url,
                 });
                 if (callback) callback();
             } catch (error) {
