@@ -64,7 +64,7 @@ const page = ref("songList");
 const centerDialogVisible = ref(true);
 
 const count = ref(0);
-axios.get("http://127.0.0.1:5000/get_count").then((res) => {
+axios.get("https://api.sooooooooooooooooootheby.top/Netease_url/get_count").then((res) => {
     count.value = res.data.count;
 });
 </script>
