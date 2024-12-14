@@ -63,7 +63,8 @@ import { message } from "ant-design-vue";
 import { downloadStore } from "../stores/download";
 
 const download = downloadStore();
-const value = ref("");
+// const value = ref("");
+const value = ref("https://music.163.com/playlist?id=8301970181&userid=480428722");
 // const value = ref("https://music.163.com/playlist?id=12763433746&userid=480428722");
 const quality = ref("standard");
 const isValueError = ref(false);
@@ -152,6 +153,7 @@ const isSelected = (id) => {
 <style lang="scss" scoped>
 .list {
     display: flex;
+    max-height: 600px;
     .control {
         width: 500px;
         .title {
@@ -172,6 +174,25 @@ const isSelected = (id) => {
     }
     .song::-webkit-scrollbar {
         display: none;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .list {
+        width: 90vw;
+        max-height: 100vh;
+        flex-direction: column;
+        padding-top: 128px;
+
+        .control {
+            width: 100%;
+            height: auto;
+        }
+        .song {
+            width: 100%;
+            max-height: 1000vh;
+            margin: 12px 0 0 0;
+        }
     }
 }
 </style>

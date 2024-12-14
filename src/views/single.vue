@@ -6,33 +6,31 @@
             },
         }"
     >
-        <div class="single">
-            <a-card class="control">
-                <p class="title">单曲模式</p>
-                <a-input class="input" v-model:value="value" placeholder="输入歌单链接或者ID" />
-                <a-alert class="alert" message="输入的链接或者ID不正确" type="error" closable v-if="isValueError" />
-                <div style="display: flex; justify-content: space-between">
-                    <div>
-                        <a-button type="primary" @click="handleValue"> 获取歌曲 </a-button>
-                        <a-select ref="select" v-model:value="quality" style="width: 120px; margin-left: 12px">
-                            <a-select-option value="standard">标准</a-select-option>
-                            <a-select-option value="exhigh">极高</a-select-option>
-                            <a-select-option value="lossless">无损</a-select-option>
-                            <a-select-option value="hires">Hi-Res</a-select-option>
-                            <a-select-option value="jyeffect">高清环绕声</a-select-option>
-                            <a-select-option value="sky">沉积环绕声</a-select-option>
-                            <a-select-option value="jymaster">超清母带</a-select-option>
-                        </a-select>
-                    </div>
-                    <a-button type="primary" @click="downloadSong" v-if="song"> 下载 </a-button>
+        <a-card class="control">
+            <p class="title">单曲模式</p>
+            <a-input class="input" v-model:value="value" placeholder="输入歌单链接或者ID" />
+            <a-alert class="alert" message="输入的链接或者ID不正确" type="error" closable v-if="isValueError" />
+            <div class="btn">
+                <div>
+                    <a-button type="primary" @click="handleValue"> 获取歌曲 </a-button>
+                    <a-select ref="select" v-model:value="quality" style="width: 120px; margin-left: 12px">
+                        <a-select-option value="standard">标准</a-select-option>
+                        <a-select-option value="exhigh">极高</a-select-option>
+                        <a-select-option value="lossless">无损</a-select-option>
+                        <a-select-option value="hires">Hi-Res</a-select-option>
+                        <a-select-option value="jyeffect">高清环绕声</a-select-option>
+                        <a-select-option value="sky">沉积环绕声</a-select-option>
+                        <a-select-option value="jymaster">超清母带</a-select-option>
+                    </a-select>
                 </div>
-            </a-card>
-        </div>
+                <a-button class="downloadBtn" type="primary" @click="downloadSong" v-if="song"> 下载 </a-button>
+            </div>
+        </a-card>
         <a-card class="player" v-if="song">
-            <div style="width: 650px; display: flex">
+            <div class="playerBox">
                 <img :src="song.pic" alt="song" />
                 <div class="control">
-                    <div style="width:100%; display: flex; justify-content: space-between; align-items: center">
+                    <div class="controlBox">
                         <div class="play">
                             <Icon class="icon" icon="gravity-ui:triangle-left-fill" @click="seek(-5)" />
                             <Icon class="icon con" icon="gravity-ui:pause-fill" @click="playStop" v-if="isPlay" />
@@ -64,8 +62,8 @@ import { setColorScheme } from "mdui/functions/setColorScheme.js";
 setColorScheme("#EC4141");
 
 const download = downloadStore();
-const value = ref("");
-// const value = ref("https://music.163.com/song?id=1830190033&userid=480428722");
+// const value = ref("");
+const value = ref("https://music.163.com/song?id=1830190033&userid=480428722");
 const quality = ref("standard");
 const isValueError = ref(false);
 const song = ref(null);
@@ -143,59 +141,71 @@ const updateProgress = () => {
 </script>
 
 <style lang="scss" scoped>
-.single {
-    .control {
-        width: 700px;
-        .title {
-            font-weight: bold;
-            font-size: 1.4rem;
-        }
-        .input {
-            margin: 12px 0;
-        }
-        .alert {
-            margin-bottom: 12px;
-        }
+.control {
+    width: 700px;
+    .title {
+        font-weight: bold;
+        font-size: 1.4rem;
+    }
+    .input {
+        margin: 12px 0;
+    }
+    .alert {
+        margin-bottom: 12px;
+    }
+    .btn {
+        display: flex;
+        justify-content: space-between;
     }
 }
+
 .player {
     width: 700px;
     position: fixed;
     bottom: 12px;
 
-    img {
-        width: 64px;
-        height: 64px;
-    }
-    .control {
-        width: 100%;
-        margin-left: 12px;
+    .playerBox {
         display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
-
-        .play {
-            height: 24px;
+        img {
+            width: 64px;
+            height: 64px;
+        }
+        .control {
+            width: 100%;
+            margin-left: 12px;
             display: flex;
+            flex-direction: column;
+            justify-content: space-between;
             align-items: center;
 
-            .icon {
-                margin: 0 12px;
-                font-size: 1.4rem;
-                cursor: pointer;
-            }
-            .con {
-                font-size: 1.6rem;
-            }
-        }
-        .info {
-            flex-grow: 1;
-            margin-left: 24px;
+            .controlBox {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                .play {
+                    height: 24px;
+                    display: flex;
+                    align-items: center;
 
-            .title {
-                font-size: 1.1rem;
-                font-weight: bold;
+                    .icon {
+                        margin: 0 12px;
+                        font-size: 1.4rem;
+                        cursor: pointer;
+                    }
+                    .con {
+                        font-size: 1.6rem;
+                    }
+                }
+                .info {
+                    flex-grow: 1;
+                    margin-left: 24px;
+
+                    .title {
+                        font-size: 1.1rem;
+                        font-weight: bold;
+                    }
+                }
             }
         }
     }
@@ -215,6 +225,55 @@ const updateProgress = () => {
         width: 120%;
         height: 120%;
         filter: blur(100px) contrast(1.2) brightness(0.8);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .control {
+        width: 90vw;
+        margin-top: 25vh;
+
+        .btn {
+            flex-direction: column;
+
+            >div {
+                display: flex;
+                justify-content: space-between;
+            }
+            .downloadBtn {
+                margin-top: 12px;
+            }
+        }
+    }
+    .player {
+        width: 90vw;
+
+        img {
+            width: 82px;
+            height: 82px;
+        }
+        .playerBox {
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+
+            .control {
+                margin: 0;
+
+                .controlBox {
+                    flex-direction: column;
+                    .play {
+                        margin-bottom: 12px;
+                    }
+                    .info {
+                        order: -1;
+                        margin: 0;
+                        margin: 12px 0;
+                        text-align: center;
+                    }
+                }
+            }
+        }
     }
 }
 </style>
