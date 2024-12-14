@@ -63,8 +63,8 @@ import { message } from "ant-design-vue";
 import { downloadStore } from "../stores/download";
 
 const download = downloadStore();
-// const value = ref("");
-const value = ref("https://music.163.com/playlist?id=8301970181&userid=480428722");
+const value = ref("");
+// const value = ref("https://music.163.com/playlist?id=8301970181&userid=480428722");
 // const value = ref("https://music.163.com/playlist?id=12763433746&userid=480428722");
 const quality = ref("standard");
 const isValueError = ref(false);

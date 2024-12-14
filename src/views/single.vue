@@ -62,8 +62,8 @@ import { setColorScheme } from "mdui/functions/setColorScheme.js";
 setColorScheme("#EC4141");
 
 const download = downloadStore();
-// const value = ref("");
-const value = ref("https://music.163.com/song?id=1830190033&userid=480428722");
+const value = ref("");
+// const value = ref("https://music.163.com/song?id=1830190033&userid=480428722");
 const quality = ref("standard");
 const isValueError = ref(false);
 const song = ref(null);
