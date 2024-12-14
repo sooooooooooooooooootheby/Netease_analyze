@@ -1,16 +1,15 @@
-import "./assets/style/main.scss";
-import "element-plus/dist/index.css";
+import './assets/main.scss'
+import 'mdui/mdui.css';
 
-import { createApp } from "vue";
-import App from "./App.vue";
+import { createApp } from 'vue'
+import { createPinia } from 'pinia'
 
-const app = createApp(App);
+import App from './App.vue'
+import router from './router'
 
-import ElementPlus from "element-plus";
-app.use(ElementPlus);
+const app = createApp(App)
 
-import { createPinia } from "pinia";
-const pinia = createPinia();
-app.use(pinia);
+app.use(createPinia())
+app.use(router)
 
-app.mount("#app");
+app.mount('#app')
