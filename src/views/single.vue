@@ -231,7 +231,7 @@ const updateProgress = () => {
 @media screen and (max-width: 768px) {
     .control {
         width: 90vw;
-        margin-top: 25vh;
+        margin-top: 128px;
 
         .btn {
             flex-direction: column;

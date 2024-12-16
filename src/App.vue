@@ -2,7 +2,7 @@
     <header>
         <a-button class="button" @click="router.push({ name: 'list' })">歌单模式</a-button>
         <a-button class="button" @click="router.push({ name: 'single' })">单曲模式</a-button>
-        <a-button @click="message.info('Ciallo～(∠・ω< )⌒☆')"> 已解析歌曲{{ count }} </a-button>
+        <a-button @click="router.push({ name: 'about' })"> 已解析歌曲{{ count }} </a-button>
     </header>
     <div class="main">
         <router-view></router-view>
