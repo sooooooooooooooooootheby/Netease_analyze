@@ -1,59 +1,51 @@
 <template>
-    <a-config-provider
-        :theme="{
-            token: {
-                colorPrimary: '#EC4141',
-            },
-        }"
-    >
-        <div class="list">
-            <a-card class="control">
-                <div style="display: flex; flex-direction: column">
-                    <p class="title">歌单模式</p>
-                    <a-input class="input" v-model:value="value" placeholder="输入歌单链接或者ID" />
-                    <a-alert class="alert" message="输入的链接或者ID不正确" type="error" closable v-if="isValueError" />
-                    <a-button type="primary" @click="handleValue"> 获取列表 </a-button>
+    <div class="list">
+        <a-card class="control">
+            <div style="display: flex; flex-direction: column">
+                <p class="title">歌单模式</p>
+                <a-input class="input" v-model:value="value" placeholder="输入歌单链接或者ID" />
+                <a-alert class="alert" message="输入的链接或者ID不正确" type="error" closable v-if="isValueError" />
+                <a-button type="primary" @click="handleValue"> 获取列表 </a-button>
+            </div>
+            <a-divider v-if="data.length" />
+            <div style="display: flex; flex-direction: column" v-if="data.length">
+                <a-select ref="select" v-model:value="quality">
+                    <a-select-option value="standard">标准</a-select-option>
+                    <a-select-option value="exhigh">极高</a-select-option>
+                    <a-select-option value="lossless">无损</a-select-option>
+                    <a-select-option value="hires">Hi-Res</a-select-option>
+                    <a-select-option value="jyeffect">高清环绕声</a-select-option>
+                    <a-select-option value="sky">沉积环绕声</a-select-option>
+                    <a-select-option value="jymaster">超清母带</a-select-option>
+                </a-select>
+                <a-button style="margin: 12px 0" type="primary" @click="downloadSong"> 下载列表所有歌曲 </a-button>
+                <div style="display: flex; justify-content: space-between; align-items: center" v-if="selectedData.length">
+                    <a-button type="primary" @click="downloadSelectedSong" style="margin-right: 12px"> 下载已选 </a-button>
+                    <p>已选择 {{ selectedData.length }} 首歌曲</p>
                 </div>
-                <a-divider v-if="data.length" />
-                <div style="display: flex; flex-direction: column" v-if="data.length">
-                    <a-select ref="select" v-model:value="quality">
-                        <a-select-option value="standard">标准</a-select-option>
-                        <a-select-option value="exhigh">极高</a-select-option>
-                        <a-select-option value="lossless">无损</a-select-option>
-                        <a-select-option value="hires">Hi-Res</a-select-option>
-                        <a-select-option value="jyeffect">高清环绕声</a-select-option>
-                        <a-select-option value="sky">沉积环绕声</a-select-option>
-                        <a-select-option value="jymaster">超清母带</a-select-option>
-                    </a-select>
-                    <a-button style="margin: 12px 0" type="primary" @click="downloadSong"> 下载列表所有歌曲 </a-button>
-                    <div style="display: flex; justify-content: space-between; align-items: center" v-if="selectedData.length">
-                        <a-button type="primary" @click="downloadSelectedSong" style="margin-right: 12px"> 下载已选 </a-button>
-                        <p>已选择 {{ selectedData.length }} 首歌曲</p>
-                    </div>
-                </div>
-            </a-card>
-            <a-card class="song" v-if="data.length">
-                <a-list item-layout="horizontal" :data-source="data">
-                    <template #renderItem="{ item }">
-                        <a-list-item>
-                            <a-list-item-meta :description="handleAr(item.ar)">
-                                <template #title>
-                                    <a href="https://www.antdv.com/">{{ item.name }}</a>
-                                </template>
-                                <template #avatar>
-                                    <a-avatar style="width: 48px; height: 48px" :src="item.al.picUrl" />
-                                </template>
-                            </a-list-item-meta>
-                            <div class="buttonBox">
-                                <a-button style="margin-left: 12px" @click="selectedData.push(item.id)" v-if="!isSelected(item.id)">选择</a-button>
-                                <a-button style="margin-left: 12px" @click="selectedData.splice(selectedData.indexOf(item.id), 1)" v-else danger>删除</a-button>
-                            </div>
-                        </a-list-item>
-                    </template>
-                </a-list>
-            </a-card>
-        </div>
-    </a-config-provider>
+            </div>
+        </a-card>
+        <a-card class="song" v-if="data.length">
+            <a-list item-layout="horizontal" :data-source="data">
+                <template #renderItem="{ item }">
+                    <a-list-item>
+                        <a-list-item-meta :description="handleAr(item.ar)">
+                            <template #title>
+                                <a href="https://www.antdv.com/">{{ item.name }}</a>
+                            </template>
+                            <template #avatar>
+                                <a-avatar style="width: 48px; height: 48px" :src="item.al.picUrl" />
+                            </template>
+                        </a-list-item-meta>
+                        <div class="buttonBox">
+                            <a-button style="margin-left: 12px" @click="selectedData.push(item.id)" v-if="!isSelected(item.id)">选择</a-button>
+                            <a-button style="margin-left: 12px" @click="selectedData.splice(selectedData.indexOf(item.id), 1)" v-else danger>删除</a-button>
+                        </div>
+                    </a-list-item>
+                </template>
+            </a-list>
+        </a-card>
+    </div>
 </template>
 
 <script setup>

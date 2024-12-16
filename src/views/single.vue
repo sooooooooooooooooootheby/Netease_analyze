@@ -1,55 +1,47 @@
 <template>
-    <a-config-provider
-        :theme="{
-            token: {
-                colorPrimary: '#EC4141',
-            },
-        }"
-    >
-        <a-card class="control">
-            <p class="title">单曲模式</p>
-            <a-input class="input" v-model:value="value" placeholder="输入歌单链接或者ID" />
-            <a-alert class="alert" message="输入的链接或者ID不正确" type="error" closable v-if="isValueError" />
-            <div class="btn">
-                <div>
-                    <a-button type="primary" @click="handleValue"> 获取歌曲 </a-button>
-                    <a-select ref="select" v-model:value="quality" style="width: 120px; margin-left: 12px">
-                        <a-select-option value="standard">标准</a-select-option>
-                        <a-select-option value="exhigh">极高</a-select-option>
-                        <a-select-option value="lossless">无损</a-select-option>
-                        <a-select-option value="hires">Hi-Res</a-select-option>
-                        <a-select-option value="jyeffect">高清环绕声</a-select-option>
-                        <a-select-option value="sky">沉积环绕声</a-select-option>
-                        <a-select-option value="jymaster">超清母带</a-select-option>
-                    </a-select>
-                </div>
-                <a-button class="downloadBtn" type="primary" @click="downloadSong" v-if="song"> 下载 </a-button>
+    <a-card class="control">
+        <p class="title">单曲模式</p>
+        <a-input class="input" v-model:value="value" placeholder="输入歌单链接或者ID" />
+        <a-alert class="alert" message="输入的链接或者ID不正确" type="error" closable v-if="isValueError" />
+        <div class="btn">
+            <div>
+                <a-button type="primary" @click="handleValue"> 获取歌曲 </a-button>
+                <a-select ref="select" v-model:value="quality" style="width: 120px; margin-left: 12px">
+                    <a-select-option value="standard">标准</a-select-option>
+                    <a-select-option value="exhigh">极高</a-select-option>
+                    <a-select-option value="lossless">无损</a-select-option>
+                    <a-select-option value="hires">Hi-Res</a-select-option>
+                    <a-select-option value="jyeffect">高清环绕声</a-select-option>
+                    <a-select-option value="sky">沉积环绕声</a-select-option>
+                    <a-select-option value="jymaster">超清母带</a-select-option>
+                </a-select>
             </div>
-        </a-card>
-        <a-card class="player" v-if="song">
-            <div class="playerBox">
-                <img :src="song.pic" alt="song" />
-                <div class="control">
-                    <div class="controlBox">
-                        <div class="play">
-                            <Icon class="icon" icon="gravity-ui:triangle-left-fill" @click="seek(-5)" />
-                            <Icon class="icon con" icon="gravity-ui:pause-fill" @click="playStop" v-if="isPlay" />
-                            <Icon class="icon con" icon="gravity-ui:play-fill" @click="playStop" v-else />
-                            <Icon class="icon" icon="gravity-ui:triangle-right-fill" @click="seek(5)" />
-                        </div>
-                        <div class="info">
-                            <p class="title">{{ song.name }}</p>
-                            <p>{{ song.ar_name }}</p>
-                        </div>
-                    </div>
-                    <mdui-linear-progress :value="currentTime" :max="duration"></mdui-linear-progress>
-                </div>
-            </div>
-        </a-card>
-        <div class="bg" v-if="song">
-            <img :src="song.pic" alt="bg" />
+            <a-button class="downloadBtn" type="primary" @click="downloadSong" v-if="song"> 下载 </a-button>
         </div>
-    </a-config-provider>
+    </a-card>
+    <a-card class="player" v-if="song">
+        <div class="playerBox">
+            <img :src="song.pic" alt="song" />
+            <div class="control">
+                <div class="controlBox">
+                    <div class="play">
+                        <Icon class="icon" icon="gravity-ui:triangle-left-fill" @click="seek(-5)" />
+                        <Icon class="icon con" icon="gravity-ui:pause-fill" @click="playStop" v-if="isPlay" />
+                        <Icon class="icon con" icon="gravity-ui:play-fill" @click="playStop" v-else />
+                        <Icon class="icon" icon="gravity-ui:triangle-right-fill" @click="seek(5)" />
+                    </div>
+                    <div class="info">
+                        <p class="title">{{ song.name }}</p>
+                        <p>{{ song.ar_name }}</p>
+                    </div>
+                </div>
+                <mdui-linear-progress :value="currentTime" :max="duration"></mdui-linear-progress>
+            </div>
+        </div>
+    </a-card>
+    <div class="bg" v-if="song">
+        <img :src="song.pic" alt="bg" />
+    </div>
 </template>
 
 <script setup>
@@ -236,7 +228,7 @@ const updateProgress = () => {
         .btn {
             flex-direction: column;
 
-            >div {
+            > div {
                 display: flex;
                 justify-content: space-between;
             }
