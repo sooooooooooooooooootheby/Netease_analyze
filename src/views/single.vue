@@ -54,8 +54,8 @@ import { setColorScheme } from "mdui/functions/setColorScheme.js";
 setColorScheme("#EC4141");
 
 const download = downloadStore();
-const value = ref("");
-// const value = ref("https://music.163.com/song?id=1830190033&userid=480428722");
+// const value = ref("");
+const value = ref("https://music.163.com/song?id=454966925&userid=480428722");
 const quality = ref("standard");
 const isValueError = ref(false);
 const song = ref(null);
@@ -89,13 +89,11 @@ const handleValue = async () => {
         const id = urlParams.get("id");
         song.value = await download.getSongInfo(quality.value, id);
         initializeSong();
-        initLyrics(song.value.lyric, song.value.tlyric);
         return;
     }
     if (value.value.match(idRegex)) {
         song.value = await download.getSongInfo(quality.value, value.value);
         initializeSong();
-        initLyrics(song.value.lyric, song.value.tlyric);
         return;
     }
     isValueError.value = true;
