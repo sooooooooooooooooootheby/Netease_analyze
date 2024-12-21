@@ -47,7 +47,6 @@ export const downloadStore = defineStore("download", {
             const songBlob = await songResponse.blob();
             let fileExtension = song.url.split(".").pop();
             fileExtension = fileExtension.split("?")[0];
-            console.log(fileExtension);
             const fileName = `${song.name}.${fileExtension}`;
             folder.file(fileName, songBlob);
 
