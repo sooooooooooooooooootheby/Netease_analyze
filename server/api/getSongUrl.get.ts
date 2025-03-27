@@ -1,4 +1,4 @@
-import { randomInt, createHash, createCipheriv } from "node:crypto";
+import { rando,Int, createHash, createCipheriv } from "node:crypto";
 import { url } from "~/types";
 
 function hexDigest(data: Buffer): string {
@@ -87,7 +87,14 @@ export default defineEventHandler(async (event) => {
         const cookies = parseCookie(config.cookie);
         const result: any = await url_v1(id.toString(), level.toString(), cookies);
 
-        const secureUrl = result.data[0].url.replace("http://", "https://");
+        if (result.data[0].url === null) {
+            throw createError({
+                statusCode: 500,
+                message: result,
+            });
+        }
+
+        const secureUrl = (<string>result.data[0].url).replace("http://", "https://");
 
         const url: url = {
             code: result.code,
