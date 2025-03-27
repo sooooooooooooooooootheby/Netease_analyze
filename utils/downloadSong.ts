@@ -27,7 +27,8 @@ export default async function (id: number, name: string, cover: string, level: s
         if (Number(url.code) !== 200) {
             return url;
         }
-        const song: any = await $fetch(url.url);
+        const secureUrl = url.url.replace('http://', 'https://');
+        const song: any = await $fetch(secureUrl);
         const songBlob = await song.arrayBuffer();
         const fileName = `${name}.${url.type}`;
         folder.file(fileName, songBlob);
