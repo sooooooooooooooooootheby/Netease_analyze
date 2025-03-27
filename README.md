@@ -26,15 +26,6 @@ npm i
 npm run dev
 ```
 
-通过托管服务
-
-<a href="https://vercel.com/new/clone?repository-url=https://github.com/sooooooooooooooooootheby/Netease_analyze" target="_blank">
-<img src="https://vercel.com/button" style="width: auto; height: 32px">
-</a>
-<a href="https://app.netlify.com/start/deploy?repository=https://github.com/sooooooooooooooooootheby/Netease_analyze" target="_blank">
-<img src="https://www.netlify.com/img/deploy/button.svg" style="width: auto; height: 32px">
-</a>
-
 设置环境变量
 
 在根目录新建一个`.env`文件, 填入黑胶会员账号的cookie.
