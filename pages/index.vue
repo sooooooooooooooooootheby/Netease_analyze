@@ -1,11 +1,11 @@
 <template>
-    <div class="flex h-screen w-full items-center justify-center p-12">
-        <div class="flex h-full flex-col">
-            <fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4 shadow-md">
+    <div class="flex h-screen w-full items-center justify-center p-12 max-md:flex-col max-md:h-auto max-md:p-6">
+        <div class="flex h-full flex-col max-md:size-full">
+            <fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4 shadow-md max-md:w-full">
                 <legend class="fieldset-legend">歌单模式</legend>
 
                 <label class="fieldset-label">歌单的链接</label>
-                <input type="text" class="input focus:outline-none" v-model="input" />
+                <input type="text" class="input focus:outline-none max-md:w-full max-md:w-full" v-model="input" />
 
                 <button class="btn btn-neutral mt-4" @click="getList(input)" :class="{ 'btn-disabled': isLoading }">
                     获取
@@ -15,7 +15,7 @@
                     <span>获取歌单失败, 请检查链接或者联系管理员.</span>
                 </div>
             </fieldset>
-            <fieldset class="fieldset bg-base-200 border-base-300 rounded-box mt-6 h-full w-xs overflow-scroll border p-4 shadow-md" v-if="Object.keys(playlist).length !== 0">
+            <fieldset class="fieldset bg-base-200 border-base-300 rounded-box mt-6 h-full w-xs overflow-scroll border p-4 shadow-md max-md:w-full" v-if="Object.keys(playlist).length !== 0">
                 <legend class="fieldset-legend">歌单信息</legend>
 
                 <div class="flex">
@@ -56,16 +56,16 @@
             </fieldset>
         </div>
 
-        <fieldset class="fieldset bg-base-200 rounded-box border-base-300 ml-6 h-full grow overflow-scroll border shadow-md" v-if="songlist.length !== 0">
+        <fieldset class="fieldset bg-base-200 rounded-box border-base-300 ml-6 h-full grow overflow-scroll border shadow-md max-md:ml-0  max-md:w-full max-md:mt-6" v-if="songlist.length !== 0">
             <legend class="fieldset-legend pl-4">歌曲列表</legend>
 
             <ul class="list">
-                <li class="flex p-4 pb-2 text-xs tracking-wide opacity-60">
+                <li class="flex p-4 pb-2 text-xs tracking-wide opacity-60 max-md:flex-col">
                     <div class="grow">
                         <span>选择你想要的歌曲</span>
                         <span v-if="selectedlist.length !== 0" class="ml-2"> 已选 {{ selectedlist.length }} 首 </span>
                     </div>
-                    <div class="mr-2">
+                    <div class="mr-2 max-md:my-2">
                         <select class="select select-xs focus:outline-none" v-model="level">
                             <option value="standard">标准音质</option>
                             <option value="exhigh">极高音质</option>
@@ -105,7 +105,7 @@
                 </li>
             </ul>
         </fieldset>
-        <dialog id="download_modal" class="modal">
+        <dialog id="download_modal" class="modal modal-bottom sm:modal-middle">
             <div class="modal-box max-h-100">
                 <form method="dialog">
                     <button class="btn btn-sm btn-circle btn-ghost absolute top-2 right-2">✕</button>
@@ -142,8 +142,146 @@
 <script lang="ts" setup>
 const input = ref<string>(""); //https://y.music.163.com/m/playlist?id=12763433746
 const level = ref<string>("standard");
-const playlist = ref<playlist>({});
-const songlist = ref<Array<song>>([]);
+const playlist = ref<playlist>({
+    code: 200,
+    name: "English Song",
+    coverImage: "https://p1.music.126.net/rjdS-m-CvEJhvfXGd7vJ2g==/109951170647599862.jpg",
+    songCount: 26,
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    tags: ["欧美", "R&B/Soul", "韩语"],
+    creator: {
+        uid: 480428722,
+        avatar: "http://p1.music.126.net/dymgS3VmUFbB6i7Ext6x3Q==/109951167416867522.jpg",
+        name: "爱丽丝_克萝蒂亚",
+    },
+    list: [
+        {
+            id: 1616018,
+        },
+        {
+            id: 26531216,
+        },
+        {
+            id: 1980855568,
+        },
+        {
+            id: 440317247,
+        },
+        {
+            id: 31191712,
+        },
+        {
+            id: 526081121,
+        },
+        {
+            id: 1468248736,
+        },
+        {
+            id: 1388433823,
+        },
+        {
+            id: 2082156813,
+        },
+        {
+            id: 447925342,
+        },
+        {
+            id: 18520488,
+        },
+        {
+            id: 27756753,
+        },
+        {
+            id: 1819036135,
+        },
+        {
+            id: 509726712,
+        },
+        {
+            id: 2025082445,
+        },
+        {
+            id: 442867526,
+        },
+        {
+            id: 2058139099,
+        },
+        {
+            id: 1786869,
+        },
+        {
+            id: 17793578,
+        },
+        {
+            id: 5100462,
+        },
+        {
+            id: 1424460203,
+        },
+        {
+            id: 461544117,
+        },
+        {
+            id: 518904648,
+        },
+        {
+            id: 28718313,
+        },
+        {
+            id: 26643898,
+        },
+        {
+            id: 1420972635,
+        },
+    ],
+});
+const songlist = ref<Array<song>>([
+    {
+        name: "My Love Mine All Mine",
+        id: 2082156813,
+        author: [
+            {
+                id: 817168,
+                name: "Mitski",
+            },
+        ],
+        album: {
+            id: 174773005,
+            name: "The Land Is Inhospitable and So Are We",
+            cover: "https://p2.music.126.net/Y_pjIwIhTGvDvF7x4kuDZw==/109951168914806368.jpg",
+        },
+    },
+    {
+        name: "My Love Mine All Mine",
+        id: 2082156813,
+        author: [
+            {
+                id: 817168,
+                name: "Mitski",
+            },
+        ],
+        album: {
+            id: 174773005,
+            name: "The Land Is Inhospitable and So Are We",
+            cover: "https://p2.music.126.net/Y_pjIwIhTGvDvF7x4kuDZw==/109951168914806368.jpg",
+        },
+    },
+    {
+        name: "My Love Mine All Mine",
+        id: 2082156813,
+        author: [
+            {
+                id: 817168,
+                name: "Mitski",
+            },
+        ],
+        album: {
+            id: 174773005,
+            name: "The Land Is Inhospitable and So Are We",
+            cover: "https://p2.music.126.net/Y_pjIwIhTGvDvF7x4kuDZw==/109951168914806368.jpg",
+        },
+    },
+]);
 
 const selectedlist = ref<Array<number>>([]);
 const downloadlist = ref<Array<download>>([]);

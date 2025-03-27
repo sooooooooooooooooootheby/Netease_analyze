@@ -1,5 +1,5 @@
 <template>
-    <dialog ref="msg" class="modal">
+    <dialog ref="msg" class="modal modal-bottom sm:modal-middle">
         <div class="modal-box">
             <form method="dialog">
                 <button class="btn btn-sm btn-circle btn-ghost absolute top-2 right-2">✕</button>
