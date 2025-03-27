@@ -87,13 +87,6 @@ export default defineEventHandler(async (event) => {
         const cookies = parseCookie(config.cookie);
         const result: any = await url_v1(id.toString(), level.toString(), cookies);
 
-        if (result.data[0].url === null) {
-            throw createError({
-                statusCode: 500,
-                message: result,
-            });
-        }
-
         const url: url = {
             code: result.code,
             url: result.data[0].url,
