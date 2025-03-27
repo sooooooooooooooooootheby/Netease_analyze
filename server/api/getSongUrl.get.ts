@@ -1,4 +1,4 @@
-import { rando,Int, createHash, createCipheriv } from "node:crypto";
+import { randomInt, createHash, createCipheriv } from "node:crypto";
 import { url } from "~/types";
 
 function hexDigest(data: Buffer): string {
@@ -94,11 +94,9 @@ export default defineEventHandler(async (event) => {
             });
         }
 
-        const secureUrl = (<string>result.data[0].url).replace("http://", "https://");
-
         const url: url = {
             code: result.code,
-            url: secureUrl,
+            url: result.data[0].url,
             size: result.data[0].size,
             type: result.data[0].type,
             time: result.data[0].time,
