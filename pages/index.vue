@@ -1,11 +1,11 @@
 <template>
-    <div class="flex h-screen w-full items-center justify-center p-12 max-md:flex-col max-md:h-auto max-md:p-6">
+    <div class="flex h-screen w-full items-center justify-center p-12 max-md:h-auto max-md:flex-col max-md:p-6">
         <div class="flex h-full flex-col max-md:size-full">
             <fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4 shadow-md max-md:w-full">
                 <legend class="fieldset-legend">歌单模式</legend>
 
                 <label class="fieldset-label">歌单的链接</label>
-                <input type="text" class="input focus:outline-none max-md:w-full max-md:w-full" v-model="input" />
+                <input type="text" class="input focus:outline-none max-md:w-full" v-model="input" />
 
                 <button class="btn btn-neutral mt-4" @click="getList(input)" :class="{ 'btn-disabled': isLoading }">
                     获取
@@ -56,7 +56,7 @@
             </fieldset>
         </div>
 
-        <fieldset class="fieldset bg-base-200 rounded-box border-base-300 ml-6 h-full grow overflow-scroll border shadow-md max-md:ml-0  max-md:w-full max-md:mt-6" v-if="songlist.length !== 0">
+        <fieldset class="fieldset bg-base-200 rounded-box border-base-300 ml-6 h-full grow overflow-scroll border shadow-md max-md:mt-6 max-md:ml-0 max-md:w-full" v-if="songlist.length !== 0">
             <legend class="fieldset-legend pl-4">歌曲列表</legend>
 
             <ul class="list">
