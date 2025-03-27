@@ -1,4 +1,4 @@
-import { rando,Int, createHash, createCipheriv } from "node:crypto";
+import { randomInt, createHash, createCipheriv } from "node:crypto";
 import { url } from "~/types";
 
 function hexDigest(data: Buffer): string {
