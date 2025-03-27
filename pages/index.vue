@@ -1,4 +1,4 @@
-<template>,
+<template>
     <div class="flex h-screen w-full items-center justify-center p-12">
         <div class="flex h-full flex-col">
             <fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4 shadow-md">
