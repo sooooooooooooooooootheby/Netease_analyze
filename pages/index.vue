@@ -112,7 +112,7 @@
                 </form>
                 <h3 class="text-lg font-bold">下载列表</h3>
                 <div class="py-4">
-                    <ul class="list" v-if="downloadlist">
+                    <ul class="list" v-if="downloadlist.length > 0">
                         <li class="list-row" v-for="item in downloadlist" :key="item.id">
                             <div><img class="rounded-box size-10" :src="item.cover" /></div>
                             <div>
@@ -132,7 +132,7 @@
                             </div>
                         </li>
                     </ul>
-                    <span class="text-sm opacity-70">下载列表还没有歌曲哦</span>
+                    <span class="text-sm opacity-70" v-else>下载列表还没有歌曲哦</span>
                 </div>
             </div>
         </dialog>
