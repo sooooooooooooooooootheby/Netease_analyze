@@ -140,7 +140,7 @@
 </template>
 
 <script lang="ts" setup>
-const input = ref<string>(""); //https://y.music.163.com/m/playlist?id=12763433746
+const input = ref<string>("https://y.music.163.com/m/playlist?id=12763433746"); // https://y.music.163.com/m/playlist?id=12763433746
 const level = ref<string>("standard");
 const playlist = ref<playlist>({});
 const songlist = ref<Array<song>>([]);
@@ -197,9 +197,9 @@ const downloadfunc = async (list: Array<download>) => {
             const { id, name, cover } = list[i];
             await downloadSong(id, name, cover, level.value);
             downloadlist.value[i].status = "check";
-            await $fetch("https://api.s22y.moe/count/add?name=neteasy", {
-                method: "POST",
-            });
+            // await $fetch("https://api.s22y.moe/count/add?name=neteasy", {
+            //     method: "POST",
+            // });
         } catch (error) {
             console.error();
             downloadlist.value[i].status = "error";
