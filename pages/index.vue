@@ -15,7 +15,7 @@
                     <span>获取歌单失败, 请检查链接或者联系管理员.</span>
                 </div>
             </fieldset>
-            <fieldset class="fieldset bg-base-200 border-base-300 rounded-box mt-6 h-full w-xs overflow-scroll border p-4 shadow-md max-md:w-full" v-if="Object.keys(playlist).length !== 0">
+            <fieldset class="fieldset bg-base-200 border-base-300 rounded-box mt-6 h-full w-xs overflow-scroll border p-4 shadow-md max-md:w-full" v-if="playlist">
                 <legend class="fieldset-legend">歌单信息</legend>
 
                 <div class="flex">
@@ -92,13 +92,13 @@
                     <div class="list-col-grow">
                         <div>{{ item.name }}</div>
                         <div class="text-xs font-semibold uppercase opacity-60">
-                            <span v-for="(ar, index) in item.author" :key="ar.id">
+                            <span v-for="(ar, i) in item.author">
                                 {{ ar.name }}
-                                <span v-if="index < item.author.length - 1">, </span>
+                                <span v-if="i < item.author.length - 1">, </span>
                             </span>
                         </div>
                     </div>
-                    <input type="checkbox" checked="checked" class="checkbox" v-model="selectedlist" :value="{ id: item.id, name: item.name, cover: item.album.cover }" />
+                    <input type="checkbox" class="checkbox" v-model="selectedlist" :value="{ id: item.id, name: item.name, cover: item.album.cover, status: 'await' }" />
                 </li>
                 <li class="mx-auto mt-4" v-if="isLoadingSonglist">
                     <div class="loading loading-sm"></div>
@@ -142,10 +142,9 @@
 <script lang="ts" setup>
 const input = ref<string>(""); // https://y.music.163.com/m/playlist?id=12763433746
 const level = ref<string>("standard");
-const playlist = ref<playlist>({});
+const playlist = ref<playlist | null>(null);
 const songlist = ref<Array<song>>([]);
-
-const selectedlist = ref<Array<number>>([]);
+const selectedlist = ref<Array<download>>([]);
 const downloadlist = ref<Array<download>>([]);
 
 const getSong = async (id: number) => {
@@ -172,7 +171,7 @@ const getList = async (url: string) => {
     const id = params.get("id");
 
     try {
-        const result: playlist = await $fetch(`/api/getPlaylist?id=${id}`);
+        const result = await $fetch(`/api/getPlaylist?id=${id}`) as any as playlist;
         playlist.value = result;
         songlist.value = [];
         isLoadingSonglist.value = true;

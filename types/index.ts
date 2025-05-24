@@ -12,7 +12,7 @@ export interface album {
 export interface song {
     name: string;
     id: number;
-    author: author;
+    author: author[];
     album: album;
 }
 
