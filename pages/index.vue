@@ -140,11 +140,7 @@
 </template>
 
 <script lang="ts" setup>
-<<<<<<< HEAD
-const input = ref<string>("https://y.music.163.com/m/playlist?id=12763433746"); // https://y.music.163.com/m/playlist?id=12763433746
-=======
 const input = ref<string>(""); // https://y.music.163.com/m/playlist?id=12763433746
->>>>>>> 91c42be (refactor: 重构代码, 抛弃使用node-server以适配vercel)
 const level = ref<string>("standard");
 const playlist = ref<playlist>({});
 const songlist = ref<Array<song>>([]);
