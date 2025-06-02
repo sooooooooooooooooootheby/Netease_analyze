@@ -177,7 +177,7 @@ const getList = async (url: string) => {
         isLoadingSonglist.value = true;
 
         for (const item of result.list) {
-            await getSong(item.id);
+            getSong(item.id);
         }
         isLoadingPlaylistError.value = false;
     } catch (error) {
