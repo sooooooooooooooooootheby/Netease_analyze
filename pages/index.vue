@@ -140,7 +140,7 @@
 </template>
 
 <script lang="ts" setup>
-const input = ref<string>(""); // https://y.music.163.com/m/playlist?id=12763433746
+const input = ref<string>("https://y.music.163.com/m/playlist?id=12763433746"); // https://y.music.163.com/m/playlist?id=12763433746
 const level = ref<string>("standard");
 const playlist = ref<playlist | null>(null);
 const songlist = ref<Array<song>>([]);
@@ -171,7 +171,7 @@ const getList = async (url: string) => {
     const id = params.get("id");
 
     try {
-        const result = await $fetch(`/api/getPlaylist?id=${id}`) as any as playlist;
+        const result = (await $fetch(`/api/getPlaylist?id=${id}`)) as any as playlist;
         playlist.value = result;
         songlist.value = [];
         isLoadingSonglist.value = true;
@@ -198,6 +198,8 @@ const downloadfunc = async (list: Array<download>) => {
             downloadlist.value[i].status = "check";
             await $fetch("https://api.s22y.moe/count/add?name=neteasy", {
                 method: "POST",
+            }).catch((e) => {
+                console.error("Count API error:", e);
             });
         } catch (error) {
             console.error();
