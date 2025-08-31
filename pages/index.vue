@@ -140,7 +140,7 @@
 </template>
 
 <script lang="ts" setup>
-const input = ref<string>("https://y.music.163.com/m/playlist?id=12763433746"); // https://y.music.163.com/m/playlist?id=12763433746
+const input = ref<string>(""); // https://y.music.163.com/m/playlist?id=12763433746
 const level = ref<string>("standard");
 const playlist = ref<playlist | null>(null);
 const songlist = ref<Array<song>>([]);
